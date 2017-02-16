@@ -1,0 +1,9 @@
+.navHeader {
+  composes: 48pt sans-serif from "../shared/styles/typography.css";
+  background-color: grey;
+  width: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  height: 100px;
+}

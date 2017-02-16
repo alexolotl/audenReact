@@ -1,0 +1,92 @@
+.bold {
+  font-weight: bold;
+}
+.light {
+  font-weight: lighter;
+}
+
+.serif {
+  font-family: serif;
+}
+.sans {
+  font-family: sans-serif;
+}
+
+.48pt {
+  font-size: 48pt;
+}
+.36pt {
+  font-size: 36pt;
+}
+
+.centered {
+  text-align: center;
+}
+
+
+
+/* custom */
+
+@font-face {
+  font-family: 'FuturaBT-Book';
+  src: url('../../../static/fonts/FuturaBT-Book.eot');
+  src: url('../../../static/fonts/FuturaBT-Book.eot?#iefix') format('embedded-opentype'),
+       url('../../../static/fonts/FuturaBT-Book.woff2') format('woff2'),
+       url('../../../static/fonts/FuturaBT-Book.woff') format('woff'),
+       url('../../../static/fonts/FuturaBT-Book.ttf') format('truetype'),
+       url('../../../static/fonts/FuturaBT-Book.svg#FuturaBT-Book') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HKGrotesk-Regular';
+  src: url('../../../static/fonts/HKGrotesk-Regular.eot');
+  src: url('../../../static/fonts/HKGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../../../static/fonts/HKGrotesk-Regular.woff2') format('woff2'),
+       url('../../../static/fonts/HKGrotesk-Regular.woff') format('woff'),
+       url('../../../static/fonts/HKGrotesk-Regular.ttf') format('truetype'),
+       url('../../../static/fonts/HKGrotesk-Regular.svg#HKGrotesk-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HKGrotesk-Light';
+  src: url('../../../static/fonts/HKGrotesk-Light.eot');
+  src: url('../../../static/fonts/HKGrotesk-Light.eot?#iefix') format('embedded-opentype'),
+       url('../../../static/fonts/HKGrotesk-Light.woff2') format('woff2'),
+       url('../../../static/fonts/HKGrotesk-Light.woff') format('woff'),
+       url('../../../static/fonts/HKGrotesk-Light.ttf') format('truetype'),
+       url('../../../static/fonts/HKGrotesk-Light.svg#HKGrotesk-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'HKGrotesk-Light', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'FuturaBT-Book', sans-serif;
+  font-weight: 100;
+}
+
+h1 {
+  font-size: 7em;
+  color: white;
+}
+
+p {
+  line-height: 1.5em;
+  letter-spacing: .08em;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+  color: #595959;
+}
+a:visited {
+
+}
