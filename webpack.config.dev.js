@@ -4,18 +4,18 @@ const path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  devtool: 'eval',
   cache: true,
   entry: [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client',
     path.join(__dirname, 'src', 'app-client.js')
   ],
-  devtool: 'source-map',
   target: 'web',
   output: {
     path: '/',
-    publicPath: 'http://localhost:3000/bundle/',
-    filename: 'main.js'
+    publicPath: 'http://localhost:3000/static/bundle/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -27,6 +27,13 @@ module.exports = {
       //   cacheDirectory: 'babel_cache',
       //   presets: ['react', 'es2015']
       // }
+    },
+    {
+        test: /react-icons\/(.)*(.js)$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
     },
     // {
     //     test: /\.css$/,

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import products from '../data/products';
 import styles from './styles/ProductPage.scss';
+import FaAngleLeft from 'react-icons/fa/angle-left';
+import FaAngleRight from 'react-icons/fa/angle-right';
 
 export default class ProductPage extends React.Component {
 
@@ -26,7 +28,7 @@ export default class ProductPage extends React.Component {
 
       <div className={styles.productPage}>
         <div className="navigateForward">
-          <Link to={`/product/${ getPrevProduct() }`}>Prev</Link>
+          <Link to={`/product/${ getPrevProduct() }`}><FaAngleLeft /></Link>
         </div>
         <div className="product">
           <div className={styles.picture}>
@@ -40,7 +42,7 @@ export default class ProductPage extends React.Component {
           </div>
         </div>
         <div className="navigateBack">
-          <Link to={`/product/${ getNextProduct() }`}>Next</Link>
+          <Link to={`/product/${ getNextProduct() }`}><FaAngleRight /></Link>
         </div>
       </div>
 

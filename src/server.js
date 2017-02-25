@@ -1,36 +1,41 @@
 import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
+const webpack = require('webpack');
 // import React from 'react';
 // import { renderToString } from 'react-dom/server';
 // import { match, RouterContext } from 'react-router';
 // import routes from './routes';
 // import NotFoundPage from './components/NotFoundPage';
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require('../webpack.config.dev');
 
 // initialize the server and configure support for ejs templates
 const app = new Express();
 const server = new Server(app);
-var compiler = webpack(config);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-if (process.env.NODE_ENV != 'production' ) {
-    app.use(require('webpack-dev-middleware')(compiler, {
-        noInfo: true,
-        publicPath: config.output.publicPath
-    }));
+if (process.env.NODE_ENV !== 'production' ) {
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const config = require('../webpack.config.dev');
 
-    app.use(require('webpack-hot-middleware')(compiler));
+  const compiler = webpack(config);
+  app.use(require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: config.output.publicPath
+  }));
+
+  app.use(require('webpack-hot-middleware')(compiler));
 }
-// else {
-//     // define the folder that will be used for static assets
-//     app.use(Express.static(path.join(__dirname, 'static')));
-// }
-app.use(Express.static(path.join(__dirname, 'static')));
+else {
+  const config = require('../webpack.config.prod');
+
+  const compiler = webpack(config);
+
+  app.use(Express.static(path.join(__dirname, 'static')));
+}
+// app.use(Express.static(path.join(__dirname, 'static')));
+
 
 
 
