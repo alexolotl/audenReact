@@ -14,7 +14,7 @@ module.exports = {
   target: 'web',
   output: {
     path: '/',
-    publicPath: 'http://localhost:3000/static/bundle/',
+    publicPath: 'http://localhost:3000/build/',
     filename: 'bundle.js'
   },
   module: {
@@ -35,22 +35,6 @@ module.exports = {
           presets: ['es2015', 'react']
         }
     },
-    // {
-    //     test: /\.css$/,
-    //     // loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-    // },
-    // {
-    //   test: /\.css/,
-    //   loader: ExtractTextPlugin.extract('css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
-    // }, // this version for production!
-    // {
-    //   test: /\.css$/,
-    //   loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-    // },
-    // {
-    //   test: /\.scss$/,
-    //   loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap' ] // should probably make this more like the
-    // },
     {
       test: /\.css$/,
       loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]&camelCase=dashes'
@@ -69,7 +53,7 @@ module.exports = {
       include : path.join(__dirname, 'src', 'static', 'img'),
       loader  : 'url-loader?limit=30000&name=images/[name].[ext]'
    }, // inline base64 URLs for <=30k images, direct URLs for the rest
-   { test: /\.svg$/, loader: 'url?limit=65000&mimetype=image/svg+xml&name=public/fonts/[name].[ext]' },
+    { test: /\.svg$/, loader: 'url?limit=65000&mimetype=image/svg+xml&name=public/fonts/[name].[ext]' },
     { test: /\.woff$/, loader: 'url?limit=65000&mimetype=application/font-woff&name=public/fonts/[name].[ext]' },
     { test: /\.woff2$/, loader: 'url?limit=65000&mimetype=application/font-woff2&name=public/fonts/[name].[ext]' },
     { test: /\.[ot]tf$/, loader: 'url?limit=65000&mimetype=application/octet-stream&name=public/fonts/[name].[ext]' },
@@ -78,11 +62,10 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new ExtractTextPlugin('styles.css', {
-    //   allChunks: true
-    // }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env': {
+        'NODE_ENV': JSON.stringify( process.env.NODE_ENV )
+      }
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -93,7 +76,5 @@ module.exports = {
       beautify: false,
       dead_code: true
     })
-
-
   ]
 };

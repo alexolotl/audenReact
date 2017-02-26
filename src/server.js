@@ -1,6 +1,7 @@
 import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
+// const Express = require('express');
 const webpack = require('webpack');
 // import React from 'react';
 // import { renderToString } from 'react-dom/server';
@@ -14,7 +15,7 @@ const server = new Server(app);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-if (process.env.NODE_ENV !== 'production' ) {
+if (process.env.NODE_ENV != 'production' ) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const config = require('../webpack.config.dev');
@@ -26,21 +27,27 @@ if (process.env.NODE_ENV !== 'production' ) {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
-}
-else {
-  const config = require('../webpack.config.prod');
-
-  const compiler = webpack(config);
 
   app.use(Express.static(path.join(__dirname, 'static')));
 }
+else {
+  // const config = require('../webpack.config.prod');
+  //
+  // const compiler = webpack(config);
+
+  // app.use(Express.static(path.join(__dirname, 'static')));
+  console.log('hi');
+  // app.use(Express.static('../build'));  //should i add both of these?
+  app.use('/build', Express.static(path.join(__dirname, '../build')));
+}
+// app.use(Express.static('../build'));
+console.log('hello');
+app.use('/build', Express.static(path.join(__dirname, '../build')));
 // app.use(Express.static(path.join(__dirname, 'static')));
 
 
-
-
 // universal routing and rendering
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'static', 'index.html'));
   // match(
   //   { routes, location: req.url },
