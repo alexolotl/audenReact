@@ -27,9 +27,6 @@ node_modules/
 # folder for temporary files.
 tmp/
 
-# output folder.
-build/
-
 # Bower stuff.
 bower_components/
 
