@@ -15,7 +15,7 @@ export default class ThreeContainer extends React.Component {
     this.experience = new Experience( this.threeRef );
   }
   componentDidUpdate() {
-    this.experience.scene.sphere.scale.set(this.state.sphereSize,this.state.sphereSize,this.state.sphereSize);
+    //this.experience.scene.sphere.scale.set(this.state.sphereSize,this.state.sphereSize,this.state.sphereSize);
   }
   handleChangeSize(e) {
     let oldsize = this.state.sphereSize;
@@ -26,8 +26,6 @@ export default class ThreeContainer extends React.Component {
         clearInterval(this.interval);
       }
     }, 10);
-    console.log(this.state);
-    console.log('end of changeSize');
   }
   render() {
     return (

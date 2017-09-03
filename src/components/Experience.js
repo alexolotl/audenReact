@@ -1,6 +1,8 @@
 import * as THREE from '../static/js/three.min.js';
 import vertex from './shaders/BlobVertex.js';
 import fragment from './shaders/BlobFragment.js';
+import {TweenMax, Power3, TweenLite, TimelineLite} from "gsap";
+
 
 let mouse = new THREE.Vector2(0,0);
 let dampenedMouse = new THREE.Vector2(0,0);
@@ -40,8 +42,8 @@ class Blob extends THREE.Mesh {
   			scale2: {type: "f", value: 1},
   			scale3: {type: "f", value: 1},
   			scale4: {type: "f", value: 0},
-  			scale5: {type: "f", value: 0},
-  			scale6: {type: "f", value: .5},
+  			scale5: {type: "f", value: 1.},
+  			scale6: {type: "f", value: 1.},
   			scale7: {type: "f", value: 0},
   			scale8: {type: "f", value: 2},
   			scale9: {type: "f", value: 0.7},
@@ -61,6 +63,7 @@ class Blob extends THREE.Mesh {
   		vertexShader: vertex,
   		fragmentShader: fragment
   	})
+    material.transparent = true;
   	material.backFaceCulling = false;
     super( geometry, material )
     this.uniforms = uniforms
@@ -69,7 +72,7 @@ class Blob extends THREE.Mesh {
   update() {
     this.uniforms.time.value += 0.02;
     dampenedMouse.x += (mouse.x - dampenedMouse.x)*0.02;
-	   dampenedMouse.y += (mouse.y  - dampenedMouse.y)*0.02;
+	  dampenedMouse.y += (mouse.y  - dampenedMouse.y)*0.02;
     this.uniforms.mouse.value.copy(dampenedMouse)
   }
 }
@@ -115,6 +118,7 @@ export default class Experience {
   bind() {
     window.addEventListener( 'resize', this.resize.bind( this ), false )
     window.addEventListener( 'mousemove', this.mousemove.bind( this ), false )
+    window.addEventListener( 'click', this.click.bind( this ), false )
   }
 
   loop() {
@@ -153,5 +157,11 @@ export default class Experience {
   	// mousevec.y = (1.- mousevec.y / window.innerHeight) * 2 - 1;
   	// oldmouse.x = oldmouse.x / window.innerWidth * 2 - 1;
   	// oldmouse.y = oldmouse.y / window.innerHeight * 2 - 1;
+  }
+
+  click() {
+    console.log('hi')
+    TweenLite.to(this.scene.blob.uniforms.scale5, 2, {value: 3, ease:Power3.easeIn});
+    TweenLite.to(this.scene.blob.uniforms.scale6, 2, {value: 0, ease:Power3.easeInOut});
   }
 }

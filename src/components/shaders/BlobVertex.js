@@ -116,6 +116,7 @@ const vertexShader =  `precision highp float;
             newValue.z = cos(newu);
 
             newValue*=size/2.;
+            newValue*=scale5;
             normVal = normalize(newValue);
 
             newValue += scale1*(.25*vec3(sin(time2*time/2.),sin(time2*time/3.),2.*sin(time2*time/2.5))+0.15*vec3(sin(time/6.),sin(time/5.),2.*sin(time/4.)));

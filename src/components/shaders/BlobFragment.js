@@ -17,6 +17,7 @@ const fragShader =  `precision highp float;
           uniform float time;
           uniform float specularLight;
           uniform float reflection;
+          uniform float scale6;
 
           // Refs
           uniform sampler2D textureSampler;
@@ -71,7 +72,7 @@ const fragShader =  `precision highp float;
               float specComp = max(0., dot(vNormalW, angleW));
               specComp = pow(specComp, 512.) * 0.05;
 
-              gl_FragColor = vec4(mix(emissive*color, ndl*color*vec3(1.,0.98,1.) + specComp*5.*specularLight, 0.66),1.);
+              gl_FragColor = vec4(mix(emissive*color, ndl*color*vec3(1.,0.98,1.) + specComp*5.*specularLight, 0.66),scale6);
               // gl_FragColor = vec4(vNormal, 1.); // this looks really cool...especially if you change the bump extremity
           }`
 
