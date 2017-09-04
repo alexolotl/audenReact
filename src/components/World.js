@@ -3,6 +3,8 @@ import dat from '../static/js/dat.gui.min.js';
 import vertex from './shaders/MorphSphereVertex.js';
 import textFragment from './shaders/TextFragment.js';
 import textVertex from './shaders/TextVertex.js';
+import fragmentSpikes from './shaders/SpikesFragment.js'
+import vertexSpikes from './shaders/SpikesVertex.js'
 import fragment from './shaders/MorphSphereFragment.js';
 import {TweenMax, Power3, TweenLite, TimelineLite} from "gsap";
 import reflectImage from '../static/img/amiga4.jpg'
@@ -91,7 +93,6 @@ class TextObject extends THREE.Object3D {
     super()
     this.textcanvas = new TextCanvas()
     this.add(this.textcanvas)
-    this.rad = 0
   }
 
   update() {
@@ -99,6 +100,7 @@ class TextObject extends THREE.Object3D {
     this.textcanvas.update();
   }
 }
+
 
 class MorphSphere extends THREE.Mesh {
   constructor(vertices) {
@@ -155,62 +157,55 @@ class MorphSphere extends THREE.Mesh {
   }
 }
 
-// class MorphSphere2 extends THREE.Mesh {
-//   constructor(vertices) {
-//     let loader = new THREE.TextureLoader;
-//     let texture = loader.load(reflectImage);
-//     texture = null;
-//     let uniforms = {
-//   			textureSampler: { type: "t", value: texture},
-//   			time: {type: "f", value: 0},
-//   			refSampler: {type: "t", value: texture},
-//   			mouse: {type: "v2", value: new THREE.Vector2()},
-//   			pickPoint: {type: "v3", value: new THREE.Vector3()},
-//   			resolution: {type: "v2", value: new THREE.Vector2(window.innerWidth, window.innerHeight)},
-//   			gravityScale: {type: "f", value: 0},
-//   			time1: {type: "f", value: 1},
-//   			time2: {type: "f", value: 1.5},
-//   			time3: {type: "f", value: .2},
-//   			time4: {type: "f", value: .2},
-//   			displace: {type: "f", value: .9},
-//   			scale1: {type: "f", value: .75},
-//   			scale2: {type: "f", value: 1},
-//   			scale3: {type: "f", value: 0},
-//   			scale4: {type: "f", value: 0},
-//   			scale5: {type: "f", value: 1.},
-//   			scale6: {type: "f", value: 1.},
-//   			scale7: {type: "f", value: 0},
-//   			scale8: {type: "f", value: 4},
-//   			scale9: {type: "f", value: 12},
-//   			size: {type: "f", value: 2.5},
-//   			reflection: {type: "f", value: 0},
-//   			specularLight: {type: "f", value: 0},
-//   			detail: {type: "f", value: 1},
-//   			octaves: {type: "f", value: 2},
-//   			u_bump: {type: "f", value: 1.5}
-//   	}
-//     let paraSphere = function(u, v) {
-// 			return new THREE.Vector3(4.5*Math.sin(u)*Math.cos(v), 4.5*Math.sin(u)*Math.sin(v), 4.5*Math.cos(u));
-// 		};
-// 		const geometry = new THREE.ParametricBufferGeometry( paraSphere, vertices, vertices );
-//     const material = new THREE.ShaderMaterial( {
-//   		uniforms: uniforms,
-//   		vertexShader: vertex,
-//   		fragmentShader: fragment
-//   	})
-//     material.transparent = true;
-//   	material.backFaceCulling = false;
-//     super( geometry, material )
-//     this.uniforms = uniforms
-//   }
-//
-//   update() {
-//     this.uniforms.time.value += 0.02;
-//     dampenedMouse.x += (mouse.x - dampenedMouse.x)*0.02;
-// 	  dampenedMouse.y += (mouse.y  - dampenedMouse.y)*0.02;
-//     this.uniforms.mouse.value.copy(dampenedMouse)
-//   }
-// }
+class SphereSpikes extends THREE.Mesh {
+  constructor(vertices) {
+    let uniforms = {
+  			time: {type: "f", value: 0},
+  			mouse: {type: "v2", value: new THREE.Vector2()},
+  			pickPoint: {type: "v3", value: new THREE.Vector3()},
+  			resolution: {type: "v2", value: new THREE.Vector2(window.innerWidth, window.innerHeight)},
+  			gravityScale: {type: "f", value: 0},
+  			time1: {type: "f", value: 1},
+  			time2: {type: "f", value: 1.5},
+  			time3: {type: "f", value: .2},
+  			time4: {type: "f", value: .2},
+  			displace: {type: "f", value: .19},
+  			scale1: {type: "f", value: .75},
+  			scale2: {type: "f", value: 1},
+  			scale3: {type: "f", value: 0},
+  			scale4: {type: "f", value: 0},
+  			scale5: {type: "f", value: 1.},
+  			scale6: {type: "f", value: 1.},
+  			scale7: {type: "f", value: 0},
+  			scale8: {type: "f", value: 1.5},
+  			scale9: {type: "f", value: 0.7},
+  			size: {type: "f", value: 5},
+  			reflection: {type: "f", value: 0},
+  			specularLight: {type: "f", value: 0},
+  			detail: {type: "f", value: .9},
+  			octaves: {type: "f", value: 2},
+  			u_bump: {type: "f", value: 1.5}
+  	}
+    let paraSphere = function(u, v) {
+			return new THREE.Vector3(4.5*Math.sin(u)*Math.cos(v), 4.5*Math.sin(u)*Math.sin(v), 4.5*Math.cos(u));
+		};
+		const geometry = new THREE.ParametricBufferGeometry( paraSphere, vertices, vertices );
+    const material = new THREE.ShaderMaterial( {
+  		uniforms: uniforms,
+  		vertexShader: vertexSpikes,
+  		fragmentShader: fragmentSpikes
+  	})
+    material.transparent = true;
+  	material.backFaceCulling = false;
+    super( geometry, material )
+    this.uniforms = uniforms
+  }
+
+  update() {
+    this.uniforms.time.value += 0.02;
+    this.uniforms.mouse.value.copy(dampenedMouse)
+  }
+}
 
 class Scene extends THREE.Scene {
   constructor() {
@@ -218,11 +213,13 @@ class Scene extends THREE.Scene {
     // this.sphere = new Sphere()
     // this.add( this.sphere )
 
+    this.time = 0;
+
     this.morphsphere = new MorphSphere(512)
     this.add( this.morphsphere )
 
-    // this.morphsphere2 = new MorphSphere2(512)
-    // this.add( this.morphsphere2 )
+    // this.spherespikes = new SphereSpikes(256)
+    // this.add( this.spherespikes )
 
     this.textobject = new TextObject()
 
@@ -232,9 +229,9 @@ class Scene extends THREE.Scene {
     this.background = new BackgroundSphere()
     this.add( this.background)
 
-    const bluePoint = new THREE.PointLight(0x001199, 3, 150);
-    bluePoint.position.set( 70, 5, 70 );
-    this.add(bluePoint);
+    this.light1 = new THREE.PointLight(0x444444, 5, 150);
+    this.light1.position.set( 0, 0, 70 );
+    this.add(this.light1);
   }
 
   update() {
@@ -243,8 +240,10 @@ class Scene extends THREE.Scene {
 
     //this.sphere.update()
     this.morphsphere.update()
-    // this.morphsphere2.update()
+    // this.spherespikes.update()
     this.textobject.update()
+
+    // this.time = this.morphsphere.uniforms.time.value;
   }
 }
 
@@ -257,7 +256,7 @@ export default class World {
     this.renderer = new THREE.WebGLRenderer( { antialias: true } )
     this.renderer.setPixelRatio( window.devicePixelRatio )
     this.renderer.setSize( this.innerWidth, this.innerHeight )
-    this.renderer.setClearColor( 0x252525 )
+    this.renderer.setClearColor( 0xddddd )
     container.appendChild( this.renderer.domElement )
 
     const fps = 120
@@ -271,15 +270,29 @@ export default class World {
     this.loop()
 
     this.gui = new dat.GUI();
-		this.gui.add(this.scene.morphsphere.uniforms.reflection, 'value', 0, 1.5).name('reflection').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.time1, 'value', 0, 3).name('time1').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.scale3, 'value', 0, 1).name('toon vs real').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.scale9, 'value', 0, 5).name('B_displace').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.scale8, 'value', 0, 5).name('B_scale').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.detail, 'value', 0, 1).name('B_sharpness').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.size, 'value', 4, 6).name('size').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.scale2, 'value', 0, 3).name('mouseover roll amount').step(.02);
-		this.gui.add(this.scene.morphsphere.uniforms.u_bump, 'value', 0, 6).name('accentuation of shading').step(.02);
+    if (this.scene.morphsphere) {
+      this.gui.add(this.scene.morphsphere.uniforms.reflection, 'value', 0, 1.5).name('reflection').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.time1, 'value', 0, 3).name('time1').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.scale3, 'value', 0, 1).name('toon vs real').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.scale9, 'value', 0, 5).name('B_displace').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.scale8, 'value', 0, 5).name('B_scale').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.detail, 'value', 0, 1).name('B_sharpness').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.size, 'value', 4, 6).name('size').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.scale2, 'value', 0, 3).name('mouseover roll amount').step(.02);
+  		this.gui.add(this.scene.morphsphere.uniforms.u_bump, 'value', 0, 6).name('accentuation of shading').step(.02);
+    }
+    if (this.scene.spherespikes) {
+      this.gui.add(this.scene.spherespikes.uniforms.reflection, 'value', 0, 1.5).name('reflection').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.time1, 'value', 0, 3).name('time1').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.scale3, 'value', 0, 1).name('toon vs real').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.scale9, 'value', 0, 5).name('B_displace').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.scale8, 'value', 0, 5).name('B_scale').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.detail, 'value', 0, 1).name('B_sharpness').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.size, 'value', 4, 6).name('size').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.scale2, 'value', 0, 3).name('mouseover roll amount').step(.02);
+  		this.gui.add(this.scene.spherespikes.uniforms.u_bump, 'value', 0, 6).name('accentuation of shading').step(.02);
+    }
+
   }
 
   bind() {

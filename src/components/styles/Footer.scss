@@ -11,19 +11,19 @@
   width: 200%;
 
   animation-name: left;
-  animation-duration: 12s;
+  animation-duration: 15s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
 @keyframes left {
-  from {left: 0;}
-  to {left: -1500px;}
+  from {transform: translateX(0);}
+  to {transform: translateX(-1500px);}
 }
 
 @keyframes right {
-  from {left: -1500px;}
-  to {left: 0px;}
+  from {transform: translateX(0px);}
+  to {transform: translateX(1500px);}
 }
 
 .header {
@@ -35,11 +35,11 @@
   position: fixed;
 
   top:0;
-  right: 0;
+  left: -1500px;
   width: 200%;
 
   animation-name: right;
-  animation-duration: 12s;
+  animation-duration: 15s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }

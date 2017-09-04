@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
         <footer className={styles.footer}>
           {/*<Link to="/"><h2>auden norbury</h2></Link>
           <Link to="/product/lotion"><h2>cocreate</h2></Link>*/}
-          <span>GROOVYGROOVY    FRIDAY SEPT 8 2017    RSVP HERE     GROOVYGROOVY    FRIDAY SEPT 8 2017    RSVP HERE     GROOVYGROOVY    FRIDAY SEPT 8 2017    RSVP HERE</span>
+          <span><span className={styles.yellow}>GROOVYGROOVY</span>    FRIDAY SEPT 8 2017    RSVP HERE     GROOVYGROOVY    FRIDAY SEPT 8 2017    RSVP HERE     GROOVYGROOVY    FRIDAY SEPT 8 2017    RSVP HERE</span>
         </footer>
         {/*
           <footer className={styles.footer} style={{bottom: 50, animationDuration: '9s'}}>
