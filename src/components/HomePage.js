@@ -12,7 +12,7 @@ export default class HomePage extends React.Component {
   render() {
     return (
         <div className={styles.home}>
-            <h1 key={"title"}><a href="#" onClick={this.props.nextPage}>audenorbury</a></h1>
+            {/*<h1 key={"title"}><a href="#" onClick={this.props.nextPage}>audenorbury</a></h1>*/}
         </div>
     );
   }

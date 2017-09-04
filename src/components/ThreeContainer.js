@@ -1,6 +1,6 @@
 import React from 'react';
 import TransformControls from './TransformControls.js';
-import Experience from './Experience.js';
+import World from './World.js';
 import styles from './styles/Layout.scss';
 
 export default class ThreeContainer extends React.Component {
@@ -12,7 +12,7 @@ export default class ThreeContainer extends React.Component {
     this.handleChangeSize = this.handleChangeSize.bind(this);
   }
   componentDidMount() {
-    this.experience = new Experience( this.threeRef );
+    this.world = new World( this.threeRef );
   }
   componentDidUpdate() {
     //this.experience.scene.sphere.scale.set(this.state.sphereSize,this.state.sphereSize,this.state.sphereSize);
@@ -30,7 +30,7 @@ export default class ThreeContainer extends React.Component {
   render() {
     return (
       <div>
-        <TransformControls callbackParent={(e) => this.handleChangeSize(e)}></TransformControls>
+        {/*<TransformControls callbackParent={(e) => this.handleChangeSize(e)}></TransformControls>*/}
         <div className={styles.threeContainer} ref={threeRef => this.threeRef = threeRef}></div>
       </div>
     );
